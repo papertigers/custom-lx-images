@@ -36,6 +36,7 @@ jobs:
                     - unifi-controller
                     - sonarr
                     - radarr
+                    - tautulli
 
         name: Build ${{ matrix.IMAGE }} image
         runs-on: ubuntu-latest
