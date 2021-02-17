@@ -28,10 +28,16 @@ jobs:
                   draft: false
                   prerelease: false
 
-    unifi-controller:
+    lx-image-build:
         needs: prepare
+        strategy:
+            matrix:
+                IMAGE:
+                    - unifi-controller
+                    - sonarr
+                    - radarr
 
-        name: Build unifi-controller image
+        name: Build ${{ matrix.IMAGE }} image
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -40,8 +46,8 @@ jobs:
             - name: Build Image
               id: build_image
               run: |
-                  cd unifi-controller
-                  tar=lx-unifi-controller.tar
+                  cd ${{ matrix.IMAGE }}
+                  tar=lx-${{ matrix.IMAGE }}.tar
                   tag=release:$$
                   docker build --tag $tag .
                   container=$(docker create $tag)
@@ -56,7 +62,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ needs.prepare.outputs.upload_url }}
-                  asset_path: ./unifi-controller/lx-unifi-controller.tar.xz
-                  asset_name: lx-unifi-controller-${{ needs.prepare.outputs.tag }}.tar.xz
+                  asset_path: ./${{ matrix.IMAGE }}/lx-${{ matrix.IMAGE }}.tar.xz
+                  asset_name: lx-${{ matrix.IMAGE }}-${{ needs.prepare.outputs.tag }}.tar.xz
                   asset_content_type: application/x-xz
 
