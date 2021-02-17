@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -ex
+
 # $1 should be the image subdir
 dp=$1
 
@@ -13,11 +15,10 @@ entrypoint=$(paste -sd ' ' < <(docker inspect $docker_img -f '{{range .Config.En
 cmd=$(paste -sd ' ' < <(docker inspect $docker_img -f '{{range .Config.Cmd}}{{println .}}{{end}}'))
 docker_env=$(docker inspect $docker_img -f '{{range .Config.Env}}{{println .}}{{end}}' | awk 'NF {print "export " $0}')
 
-mkdir -p "$dp/helpers"
-build_script="$dp/helpers/build.sh"
+lx_init="$dp/init"
 
 # basic setup for /sbin/init
-cat <<EOF > "$build_script"
+cat <<EOF > "$lx_init"
 #!/bin/sh
 
 exec </dev/null
@@ -31,11 +32,9 @@ echo "nameserver 10.0.1.2" > /etc/resolv.conf
 
 EOF
 
-cat <<< "$docker_env" >> "$build_script"
-echo >> "$build_script"
-echo "cd $workingdir" >> "$build_script"
-echo "exec $entrypoint $cmd" >> "$build_script"
+cat <<< "$docker_env" >> "$lx_init"
+echo >> "$lx_init"
+echo "cd $workingdir" >> "$lx_init"
+echo "exec $entrypoint $cmd" >> "$lx_init"
 
-
-
-
+chmod +x "$lx_init"
