@@ -47,6 +47,7 @@ jobs:
             - name: Build Image
               id: build_image
               run: |
+                  ./setup.sh ${{ matrix.IMAGE }}
                   cd ${{ matrix.IMAGE }}
                   tar=lx-${{ matrix.IMAGE }}.tar
                   tag=release:$$
