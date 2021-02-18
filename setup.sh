@@ -38,6 +38,13 @@ echo "nameserver 10.0.1.2" > /etc/resolv.conf
 EOF
 
 cat <<< "$docker_env" >> "$lx_init"
+
+# Allow images to set custom env variables
+if [[ -f "$dp/env" ]]; then
+	echo "---- custom env overrides ----" >> "$lx_init"
+	cat "$dp/env" >> "$lx_init"
+fi
+
 echo >> "$lx_init"
 echo "cd $workingdir" >> "$lx_init"
 echo "exec $entrypoint $cmd" >> "$lx_init"
