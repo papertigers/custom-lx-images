@@ -1,0 +1,15 @@
+#!/bin/sh
+
+exec </dev/null
+exec 1> /var/log/lxinit.log
+exec 2> /var/log/lxinit.log
+
+set -ex
+
+# this is a hack until the lx brand scripts get modified
+echo "nameserver 10.0.1.2" > /etc/resolv.conf
+
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+cd /
+exec /bin/sh -c ./start.sh
