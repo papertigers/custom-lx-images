@@ -37,6 +37,7 @@ jobs:
                     - sonarr
                     - radarr
                     - tautulli
+                    - channels-dvr
 
         name: Build ${{ matrix.IMAGE }} image
         runs-on: ubuntu-latest
