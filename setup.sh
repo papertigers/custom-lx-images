@@ -25,8 +25,10 @@ cat <<EOF > "$lx_init"
 #!/bin/sh
 
 exec </dev/null
-exec 1> /var/log/lxinit.log
-exec 2> /var/log/lxinit.log
+exec 1>> /var/log/lxinit.log
+exec 2>> /var/log/lxinit.log
+
+echo "====== booting $(/bin/date) ======"
 
 set -ex
 
