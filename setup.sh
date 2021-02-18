@@ -6,7 +6,7 @@ set -ex
 dp=$1
 
 # Allow images to set custom inits
-[[ -f "$dp/init ]] && exit 0
+[[ -f "$dp/init" ]] && exit 0
 
 docker_img_raw=$(head -1 $dp/Dockerfile)
 docker_img=${docker_img_raw/FROM /}
