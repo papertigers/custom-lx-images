@@ -14,4 +14,4 @@ echo "nameserver 10.0.1.2" > /etc/resolv.conf
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 cd /
-exec /bin/sh -c ./start.sh
+exec /bin/sh -c ./run.sh
