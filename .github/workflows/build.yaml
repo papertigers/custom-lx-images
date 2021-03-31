@@ -5,6 +5,8 @@ on:
             - '**.md'
         branches:
             - master
+    workflow_dispatch:
+
 jobs:
     prepare:
         name: Create Release
