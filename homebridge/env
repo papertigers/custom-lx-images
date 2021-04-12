@@ -1,0 +1,5 @@
+export TZ=America/New_York
+export PGID=1000
+export PUID=1000
+export HOMEBRIDGE_CONFIG_UI=1
+export HOMEBRIDGE_CONFIG_UI_PORT=8581

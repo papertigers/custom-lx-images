@@ -40,6 +40,7 @@ jobs:
                     - radarr
                     - tautulli
                     - channels-dvr
+                    - homebridge
 
         name: Build ${{ matrix.IMAGE }} image
         runs-on: ubuntu-latest
