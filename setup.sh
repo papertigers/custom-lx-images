@@ -21,7 +21,7 @@ docker_env=$(docker inspect $docker_img -f '{{range .Config.Env}}{{println .}}{{
 lx_init="$dp/init"
 
 # basic setup for /sbin/init
-cat <<EOF > "$lx_init"
+cat << "EOF" > "$lx_init"
 #!/bin/sh
 
 exec </dev/null
